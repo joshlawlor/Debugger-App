@@ -11,7 +11,7 @@ require('dotenv').config();
 require('./config/db')
 app.use(cors({origin: '*', methods: "GET, POST, PUT, DELETE, PATCH", credentials: true}))
 
-
+const postRoutes = require('./routes/postRoutes')
 
 // Middlewares
 app.use(express.json());
@@ -20,11 +20,11 @@ app.use(express.urlencoded({extended: true}))
 
 
 
-app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
+// app.get('/*', function(req, res) {
+//     res.sendFile(path.join(__dirname, 'build', '/Debugger-App/debugger-app/index.html'));
+//   });
 // Put API routes here, before the "catch all" route
-
+app.use('/posts', postRoutes)
 
 app.listen(PORT, function() {
   console.log(`Running on port ${PORT}`)

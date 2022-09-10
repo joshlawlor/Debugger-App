@@ -1,5 +1,5 @@
 const Post = require('../models/postModel')
-
+const User = require('../models/userModel')
 const showAll = (req,res) => {
     Post.find({}, (err, posts) => {
         if(err) {
@@ -18,7 +18,9 @@ const showOne = (req,res) => {
             res.status(400).json(err)
             return
         }else {
+            console.log(post.author) //Currently coming back undefined. Need to tweak the create post code so it assigns a user
             return res.json(post)
+
         }
     })
 
@@ -28,6 +30,8 @@ const create = (req, res) => {
     console.log('Create function ran')
     const post = new Post(req.body)
     post.save()
+    //Need to add a function that will grab the user and add post to that users posts[]
+    User.findById({ })
     res.json(post)
 }
 

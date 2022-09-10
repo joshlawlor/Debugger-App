@@ -43,6 +43,16 @@ async function login(req,res) {
     }
 }
 
+const deleteUser = (req,res) => {
+    console.log(req.user)
+    User.findByIdAndDelete({_id: req.params.id}, (err, user) => {
+        if(err){
+            res.status(400).json(err)
+        }
+        res.json({msg: 'user deleted'})
+    })
+}
+
 function createJWT(user) {
     console.log('JWT function', user)
     try {
@@ -59,5 +69,6 @@ function createJWT(user) {
 module.exports = {
     signUp,
     showAll,
-    login
+    login,
+    deleteUser
 }

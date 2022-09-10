@@ -1,20 +1,44 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import tokenService from "../../utils/tokenService";
 
-const LoginForm = () => {
+const LoginForm = ({backendURL}) => {
     const [userCred, SetUserCred] = useState({email: "", password: ""});
+    const [errorCode, setErrorCode] = useState(0);
     let navigate = useNavigate()
 
     function handleChange(event){
         SetUserCred({...userCred, [event.target.id]: event.target.value });
     };
 
+     function testUserCred(){
+        console.log(userCred)
+        fetch(`${backendURL}/users/login`, {method: "POST", body: JSON.stringify(userCred), 
+        headers: new Headers({'content-type': 'application/json'})})
+        .then((response) => {
+            console.log(response)
+            if(!response.ok){
+                console.log(response.body);
+            }else {
+                setErrorCode(0);
+                return response.json()
+            }
+        }).then(({token}) => {
+            tokenService.setToken(token);
+        }).catch(err =>{
+            console.log(err)
+        })
+    }
+
 
     function handleSubmit(e){
         e.preventDefault();
-        navigate("/posts", {replace: true})
+        testUserCred();
+        navigate("/", {replace: true})
         
       }
+
+    
 
     return (
         <form class='form' onSubmit={handleSubmit}>

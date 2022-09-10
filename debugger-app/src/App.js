@@ -1,13 +1,13 @@
 import './App.css';
 import React, { useState } from 'react'
 import {Link, Route, Routes } from 'react-router-dom'
-
-
 import LandingPage from './pages/LandingPage/LandingPage';
 import PostsPage from './pages/PostsPage/PostsPage';
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignUpForm from './components/SignUpForm/SignUpForm'
+
+const backendURL = "http://localhost:9000"
 
 function App() {
   return (
@@ -25,8 +25,8 @@ function App() {
       <Route path='/' element={<LandingPage/>}/>
       <Route path='/posts' element={<PostsPage/>}/>
       <Route path='/friends' element={<FriendsPage/>}/>
-      <Route path='/login' element={<LoginForm/>}/>
-      <Route path='/signup' element={<SignUpForm/>}/>
+      <Route path='/login' element={<LoginForm backendURL = {backendURL}/>}/>
+      <Route path='/signup' element={<SignUpForm backendURL = {backendURL}/>}/>
      </Routes>
     </div>
   );

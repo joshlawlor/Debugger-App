@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const SignUpForm = () => {
+import tokenService from "../../utils/tokenService";
+const SignUpForm = ({backendURL}) => {
     const [userCred, SetUserCred] = useState({email: "", password: "", confirmPassword: ""})
     const [errorCode, setErrorCode] = useState(0);
     let navigate = useNavigate()
@@ -9,10 +10,29 @@ const SignUpForm = () => {
         SetUserCred({ ...userCred, [event.target.id]: event.target.value });
     };
 
+    async function testUserCred(){
+        console.log(backendURL)
+        await fetch(backendURL + '/users/signup', {method: "POST", body: JSON.stringify(userCred),
+        headers: new Headers({'content-type': 'application/json'})})
+        .then((response) =>{
+            if(!response.ok){
+                console.log(response.body);
+            }else{
+                setErrorCode(0);
+                console.log(response);
+                return response.json();
+            }
+        }).then(({token}) =>{
+            tokenService.setToken(token);
+        }).catch(err =>{
+            console.log(err)
+        })
+    }
     function handleSubmit(e){
         e.preventDefault();
         if(userCred.password === userCred.confirmPassword){
-          navigate('/movies', {replace:true})
+            testUserCred();
+          navigate('/', {replace:true})
         }
         else{
           setErrorCode(1);

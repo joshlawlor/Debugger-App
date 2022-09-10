@@ -8,6 +8,7 @@ const create = (req,res) => {
         }
         post.comments.push(req.body)
         post.save()
+        // Need to add function that grabs user and adds the comment to user's comments. Also to assign the comment an author
         res.json(post.comments)
     })
 }

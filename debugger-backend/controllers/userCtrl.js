@@ -20,6 +20,7 @@ const signUp = (req, res) =>{
     res.json({token})
 }
 
+// *********** THIS FUNCTION DOES NOT WORK PROPERLY ***********
 async function login(req,res) {
     try{
         const user = await User.findOne({email: req.body.email}).select('+password');

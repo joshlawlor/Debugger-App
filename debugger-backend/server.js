@@ -12,7 +12,7 @@ require('./config/db')
 app.use(cors({origin: '*', methods: "GET, POST, PUT, DELETE, PATCH", credentials: true}))
 
 const postRoutes = require('./routes/postRoutes')
-
+const commentRoutes = require('./routes/commentRoutes')
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
@@ -25,6 +25,7 @@ app.use(express.urlencoded({extended: true}))
 //   });
 // Put API routes here, before the "catch all" route
 app.use('/posts', postRoutes)
+app.use('/', commentRoutes)
 
 app.listen(PORT, function() {
   console.log(`Running on port ${PORT}`)

@@ -11,14 +11,14 @@ const showAll = (req,res) => {
 }
 
 const showOne = (req,res) => {
-    let postId = req.params.id;
+    let postId = req.params.id.toString();
     console.log(postId)
-    Post.findOne({ id: postId }, (err, post) => {
+    Post.findById({ _id: postId }, (err, post) => {
         if(err) {
             res.status(400).json(err)
             return
         }else {
-            return res.json([post])
+            return res.json(post)
         }
     })
 
@@ -32,7 +32,7 @@ const create = (req, res) => {
 }
 
 const deletePost = (req, res) => {
-    Post.findOneAndDelete({id: req.params.id }, (err, post) => {
+    Post.findByIdAndDelete({_id: req.params.id }, (err, post) => {
         if(err) {
             res.status(400).json(err)
         }

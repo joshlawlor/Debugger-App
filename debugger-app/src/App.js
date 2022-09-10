@@ -23,7 +23,7 @@ function App() {
 
      <Routes>
       <Route path='/' element={<LandingPage/>}/>
-      <Route path='/posts' element={<PostsPage/>}/>
+      <Route path='/posts' element={<PostsPage backendURL={backendURL}/>}/>
       <Route path='/friends' element={<FriendsPage/>}/>
       <Route path='/login' element={<LoginForm backendURL = {backendURL}/>}/>
       <Route path='/signup' element={<SignUpForm backendURL = {backendURL}/>}/>

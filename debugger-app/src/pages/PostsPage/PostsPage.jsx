@@ -76,7 +76,9 @@ const PostsPage = ({ backendURL }) => {
                     return (
                         <ul>
                             <li>{post.title}</li>
-                            <a href={`/posts/${post._id}`}>  Details...</a>
+                            <br/>
+                            <a href={`/posts/${post._id}`}><button>View</button></a>
+                            <br/>
                         </ul>
                     )
                 })}

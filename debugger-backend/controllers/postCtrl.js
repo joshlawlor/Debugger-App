@@ -28,6 +28,7 @@ const showOne = (req,res) => {
 
 const create = (req, res) => {
     console.log('Create function ran')
+    console.log(req.body)
     const post = new Post(req.body)
     post.save()
     //Need to add a function that will grab the user and add post to that users posts[]

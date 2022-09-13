@@ -5,7 +5,7 @@ import tokenService from "../../utils/tokenService";
 const LoginForm = ({backendURL}) => {
     const [userCred, SetUserCred] = useState({email: "", password: ""});
     const [errorCode, setErrorCode] = useState(0);
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
     function handleChange(event){
         SetUserCred({...userCred, [event.target.id]: event.target.value });

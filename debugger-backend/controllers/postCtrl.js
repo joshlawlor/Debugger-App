@@ -11,15 +11,15 @@ const showAll = (req,res) => {
 }
 
 const showOne = (req,res) => {
-    let postId = req.params.id.toString();
-    console.log(postId)
+    let postId = req.params.id;
+    console.log('Post ID:',postId)
     Post.findById({ _id: postId }, (err, post) => {
         if(err) {
             res.status(400).json(err)
             return
         }else {
-            console.log(post.author) //Currently coming back undefined. Need to tweak the create post code so it assigns a user
-            return res.json(post)
+            console.log([post]) //Currently coming back undefined. Need to tweak the create post code so it assigns a user
+            return res.json([post])
 
         }
     })

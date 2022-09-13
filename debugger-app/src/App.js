@@ -6,6 +6,7 @@ import PostsPage from './pages/PostsPage/PostsPage';
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignUpForm from './components/SignUpForm/SignUpForm'
+import PostDetailsPage from './pages/PostDetailsPage/PostDetailsPage';
 
 const backendURL = "http://localhost:9000"
 
@@ -24,6 +25,7 @@ function App() {
      <Routes>
       <Route path='/' element={<LandingPage/>}/>
       <Route path='/posts' element={<PostsPage backendURL={backendURL}/>}/>
+      <Route path='/posts/:postId' element={<PostDetailsPage backendURL={backendURL}/>}/>
       <Route path='/friends' element={<FriendsPage/>}/>
       <Route path='/login' element={<LoginForm backendURL = {backendURL}/>}/>
       <Route path='/signup' element={<SignUpForm backendURL = {backendURL}/>}/>

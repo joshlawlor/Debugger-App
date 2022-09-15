@@ -26,7 +26,7 @@ function App() {
      </ul>
 
      <Routes>
-      <Route path='/' element={<LandingPage/>}/>
+      <Route path='/' element={<LandingPage backendURL={backendURL}/>}/>
       <Route path='/posts' element={<PostsPage backendURL={backendURL}/>}/>
       <Route path='/posts/:postId' element={<PostDetailsPage backendURL={backendURL}/>}/>
       <Route path='/friends' element={<FriendsPage/>}/>

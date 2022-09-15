@@ -12,6 +12,11 @@ const showAll = (req,res) => {
     })
 }
 
+const showPosts = (req,res) => {
+    const posts = req.user.posts
+    res.json(posts)
+}
+
 const signUp = (req, res) =>{
     const user = new User(req.body);
     user.save()
@@ -66,5 +71,6 @@ module.exports = {
     signUp,
     showAll,
     login,
-    deleteUser
+    deleteUser,
+    showPosts
 }

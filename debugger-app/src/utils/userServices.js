@@ -1,3 +1,5 @@
+import tokenService from "./tokenService";
+
 function logout(){
     localStorage.removeItem("token");
 }

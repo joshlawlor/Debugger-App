@@ -11,19 +11,19 @@ const LoginForm = ({backendURL}) => {
         SetUserCred({...userCred, [event.target.id]: event.target.value });
     };
 
-     function testUserCred(){
+     function getUserCred(){
         console.log(userCred)
-        fetch(`${backendURL}/users/login`, {method: "POST", body: JSON.stringify(userCred), 
-        headers: new Headers({'content-type': 'application/json'})})
+        return fetch(`${backendURL}/users/login`, {
+        method: "POST",  
+        headers: new Headers({'Content-type': 'application/json'}), 
+        body: JSON.stringify(userCred)
+        })
         .then((response) => {
             console.log(response)
-            if(!response.ok){
-                console.log(response.body);
-            }else {
-                setErrorCode(0);
-                return response.json()
-            }
+          if(response.ok) return response.json();
+          throw new Error('Bad Credentials')
         }).then(({token}) => {
+            console.log(`TOKEN `,token)
             tokenService.setToken(token);
         }).catch(err =>{
             console.log(err)
@@ -33,7 +33,7 @@ const LoginForm = ({backendURL}) => {
 
     function handleSubmit(e){
         e.preventDefault();
-        testUserCred();
+        getUserCred();
         navigate("/", {replace: true})
         
       }
@@ -50,7 +50,7 @@ const LoginForm = ({backendURL}) => {
             <input className="inputBox" onChange={handleChange} type="email" name="email" id="email" />
             </div>
             <div className='loginForm'>
-            <label clasName='label' htmlFor="password">Password</label>
+            <label className='label' htmlFor="password">Password</label>
             <input className="inputBox" onChange={handleChange} type="password" name="password" id="password" />
             </div>
             <br/>

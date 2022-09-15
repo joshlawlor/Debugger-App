@@ -21,28 +21,23 @@ const signUp = (req, res) =>{
 }
 
 // *********** THIS FUNCTION DOES NOT WORK PROPERLY ***********
-async function login(req,res) {
-    try{
-        const user = await User.findOne({email: req.body.email}).select('+password');
-        console.log(user)
-
-        if(!user) return res.status(401).json({err: 'email does not exist, userCtrl line 9'});
-        console.log(user.comparePassword(req.body.password, (err, isMatch) => {
-            console.log(isMatch)
-            if(isMatch) {
-                const token = createJWT(user);
-                console.log(`Line 28 loginFunction`)
-                console.log(token)
-                res.json({token});
-
-            }else{
-                return res.status(401).json({err: 'invalid password, userCtrl line 15'})
-            }
-        }) )
-    }catch (err){
-        return res.status(400).json(err)
+async function login(req, res) {
+    try {
+      const user = await User.findOne({ email: req.body.email }).select('+password');
+      console.log(user);
+      if (!user) return res.status(401).json({ err: 'bad credentials' });
+      user.comparePassword(req.body.password, (err, isMatch) => { //LITERALLY JUST NEEDED TO CHANGE pw TO PASSWORD 
+        if (isMatch) {
+          const token = createJWT(user);
+          res.json({ token });
+        } else {
+          return res.status(401).json({ err: 'bad credentials' });
+        }
+      });
+    } catch (err) {
+      return res.status(400).json({err: 'lin 39'});
     }
-}
+  }
 
 const deleteUser = (req,res) => {
     console.log(req.user)

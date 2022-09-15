@@ -17,10 +17,8 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     comments: [commentSchema],
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }},
+    author: [],
+    },
     {
         timestamps: true,
     })

@@ -17,7 +17,7 @@ const userRoutes = require('./routes/userRoutes')
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-// app.use(require('./config/auth'))
+app.use(require('./config/auth'))
 
 
 // app.get('/*', function(req, res) {

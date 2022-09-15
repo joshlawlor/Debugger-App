@@ -7,10 +7,13 @@ import FriendsPage from './pages/FriendsPage/FriendsPage';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignUpForm from './components/SignUpForm/SignUpForm'
 import PostDetailsPage from './pages/PostDetailsPage/PostDetailsPage';
+import userServices from './utils/userServices';
 
 const backendURL = "http://localhost:9000"
 
 function App() {
+  const [user, setUser] = useState(userServices.getUser())
+  console.log(user)
   return (
     <div className="App">
      

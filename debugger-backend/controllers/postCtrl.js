@@ -28,12 +28,28 @@ const showOne = (req,res) => {
 
 const create = (req, res) => {
     console.log('Create function ran')
-    console.log(req.body)
+    console.log(req.user)
     const post = new Post(req.body)
+    post.author.push(req.user.username)
+    console.log(post.authors)
     post.save()
-    //Need to add a function that will grab the user and add post to that users posts[]
-    User.findById({ })
+
     res.json(post)
+    //Need to add a function that will grab the user and add post to that users posts[]
+    // User.findOne({ email: req.user.email }, (err,user) => {
+    //     console.log('USER FUNCTION:',user)
+    //     if(err){
+    //         res.status(400).json(err)
+    //     }
+    //     const post = new Post(req.body)
+    //     user.posts.push(post)
+    //     console.log(user.posts)
+    //     post.authors.push(user)
+    //     console.log(post.authors)
+    //     post.save()
+
+    // })
+    // res.json(post)
 }
 
 const deletePost = (req, res) => {

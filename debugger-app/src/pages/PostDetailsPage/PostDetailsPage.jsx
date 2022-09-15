@@ -58,6 +58,7 @@ const PostDetailsPage = ({backendURL}) => {
         <div>
             
             <h1>Title: {post.title}</h1>
+            <h2>Author: {post.author}</h2>
             <p>Content: {post.content}</p>
             {/* Need to make delete button only visible to author of post */}
             <button onClick={handleDelete}>DELETE POST</button>

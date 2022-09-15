@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import tokenService from "../../utils/tokenService";
 const SignUpForm = ({backendURL}) => {
-    const [userCred, SetUserCred] = useState({email: "", password: "", confirmPassword: ""})
+    const [userCred, SetUserCred] = useState({username: "", email: "", password: "", confirmPassword: ""})
     const [errorCode, setErrorCode] = useState(0);
     let navigate = useNavigate()
 
@@ -46,6 +46,8 @@ const SignUpForm = ({backendURL}) => {
       <h3>User Sign Up</h3>
         {(errorCode===1)?<p className='error'>passwords don't match</p>:null}
         {(errorCode===2)?<p className='error'>this email is already associated with an account</p>:null}
+        <label htmlFor="Username">Username</label>
+        <input onChange={handleChange} type="username" name="username" id="username" />
         <label htmlFor="Email">Email</label>
         <input onChange={handleChange} type="email" name="email" id="email" />
         <label htmlFor="password">password</label>

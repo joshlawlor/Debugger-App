@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import tokenService from "../../utils/tokenService";
 
 const PostsPage = ({ backendURL }) => {
 
@@ -14,6 +15,8 @@ const PostsPage = ({ backendURL }) => {
 
     const [posts, setPosts] = useState([]);
 
+    const userToken = tokenService.getToken()
+
     function handleChange(event) {
         setFormData({ ...formData, [event.target.id]: event.target.value });
     };
@@ -23,7 +26,7 @@ const PostsPage = ({ backendURL }) => {
 
         fetch(`${backendURL}/posts/`, {
             method: "POST", body: JSON.stringify(formData),
-            headers: new Headers({ 'content-type': 'application/json' })
+            headers: new Headers({ 'content-type': 'application/json', 'Authorization': `${userToken}` })
         })
             .then(response => {
                 setFormData(initialState)
@@ -32,6 +35,7 @@ const PostsPage = ({ backendURL }) => {
             .then(response => {
                 getAllPosts();
                 navigate('/posts', { replace: true })
+                window.location.reload(false);
             })
 
 

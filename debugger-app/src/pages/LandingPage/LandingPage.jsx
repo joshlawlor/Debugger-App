@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import userServices from '../../utils/userServices'
 import tokenService from '../../utils/tokenService';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = ({backendURL}) => {
     const [userPosts, setUserPosts] = useState([]);
 
     const userToken = tokenService.getToken()
+
+    const navigate = useNavigate()
+
+    const user = tokenService.getUserFromToken()
 
     async function getUsersPosts() {
         await fetch(`${backendURL}/users/posts/`, {
@@ -30,19 +35,14 @@ const LandingPage = ({backendURL}) => {
         [])
 
 
-    function handleLogout() {
-        userServices.logout()
-    }
-
+    
 
 
     return (
         <div>
-            <h1>Debugger App</h1>
-            <h3>Created By: Josh Lawlor</h3>
-            <button onClick={handleLogout}>LOGOUT</button>
+            <h1>Welcome {user.username}!</h1>
 
-            <h4>Your Posts:</h4>
+            <h2>Your Posts:</h2>
             <ul>
                 {userPosts.map(post => {
                     return (

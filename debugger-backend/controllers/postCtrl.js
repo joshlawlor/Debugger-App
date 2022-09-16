@@ -40,7 +40,6 @@ const create = (req, res) => {
         if(err){
             res.status(400).json(err)
         }
-        const post = new Post(req.body)
         user.posts.push(post)
         user.save()
 

@@ -31,13 +31,30 @@ const LoginForm = ({backendURL}) => {
     }
 
 
-    function handleSubmit(e){
+    // function handleSubmit(e){
+    //     e.preventDefault();
+    //     getUserCred();
+    //     navigate("/posts", {replace: true})
+    //     window.location.reload(false)
+    //   }
+
+      function handleSubmit(e){
         e.preventDefault();
         getUserCred();
-        navigate("/", {replace: true})
+        let validated = tokenService.loginCheck()
+        if(userCred.email == '' || userCred.password == ''){
+          
+          alert('Username Or Password not Valid')
+        }else if(validated == false){
+          alert('Username Or Password Not Valid')
+        }else{
+          getUserCred();
+          console.log('CREDENTIAL FUNCTION DID NOT RUN')
+          navigate("/posts", {replace: true})
+          window.location.reload(false)
+        }
         
       }
-
     
 
     return (

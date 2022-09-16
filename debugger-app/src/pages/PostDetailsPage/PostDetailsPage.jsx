@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentForm from "../../components/CommentForm/CommentForm";
 
-const PostDetailsPage = ({backendURL}) => {
+const PostDetailsPage = ({backendURL, loggedIn}) => {
     const url = backendURL
     const navigate = useNavigate();
 
@@ -53,21 +53,36 @@ const PostDetailsPage = ({backendURL}) => {
     }
 
 
-
-    return (
-        <div>
-            
-            <h1>Title: {post.title}</h1>
-            <h2>Author: {post.author}</h2>
-            <p>Content: {post.content}</p>
-            {/* Need to make delete button only visible to author of post */}
-            <button onClick={handleDelete}>DELETE POST</button>
-            <CommentForm backendURL={url} post={post}/>
-            <br/>
-            {post.comments.map((comment) => {return <div><h4>{comment.title}</h4> <p>{comment.content}</p> </div>})}
-
-        </div>
-    )
+    if(loggedIn){
+        return (
+            <div>
+                
+                <h1>Title: {post.title}</h1>
+                <h2>By: {post.author}</h2>
+                <p>Content: {post.content}</p>
+                {/* Need to make delete button only visible to author of post */}
+                <button onClick={handleDelete}>DELETE POST</button>
+                <CommentForm backendURL={url} post={post}/>
+                <br/>
+                {post.comments.map((comment) => {return <div><h4>{comment.title}</h4> <p>{comment.content}</p> </div>})}
+    
+            </div>
+        )
+    }else{
+        return (
+            <div>
+                
+                <h1>Title: {post.title}</h1>
+                <h2>By: {post.author}</h2>
+                <p>Content: {post.content}</p>
+                {/* Need to make delete button only visible to author of post */}
+                <br/>
+                {post.comments.map((comment) => {return <div><h4>{comment.title}</h4> <p>{comment.content}</p> </div>})}
+    
+            </div>
+        )
+    }
+    
 }
 
 

@@ -12,8 +12,6 @@ import tokenService from './utils/tokenService';
 import { useNavigate} from 'react-router-dom';
 
 const backendURL = "http://localhost:9000"
-const loggedIn = "true"
-const loggedOut = false
 
 function App() {
   const [user, setUser] = useState(userServices.getUser())
@@ -25,8 +23,9 @@ function App() {
 
   // IF LOGGED IN
   if(tokenService.loginCheck() == true){
+    const loggedIn = "true"
     console.log(`${{user}}Logged In`, loggedIn)
-    
+
     function handleLogout() {
       userServices.logout()
       navigate('/posts')

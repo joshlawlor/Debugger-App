@@ -19,11 +19,11 @@ const LoginForm = ({backendURL}) => {
         body: JSON.stringify(userCred)
         })
         .then((response) => {
-            console.log(response)
+            // console.log(response)
           if(response.ok) return response.json();
           throw new Error('Bad Credentials')
         }).then(({token}) => {
-            console.log(`TOKEN `,token)
+            // console.log(`TOKEN `,token)
             tokenService.setToken(token);
         }).catch(err =>{
             console.log(err)
@@ -38,18 +38,17 @@ const LoginForm = ({backendURL}) => {
     //     window.location.reload(false)
     //   }
 
-      function handleSubmit(e){
+      async function handleSubmit(e){
         e.preventDefault();
-        getUserCred();
-        let validated = tokenService.loginCheck()
+        await getUserCred();
+        const validate = tokenService.loginCheck()
         if(userCred.email == '' || userCred.password == ''){
-          
           alert('Username Or Password not Valid')
-        }else if(validated == false){
+        }else if(validate == false){
           alert('Username Or Password Not Valid')
         }else{
           getUserCred();
-          console.log('CREDENTIAL FUNCTION DID NOT RUN')
+          // console.log('CREDENTIAL FUNCTION DID NOT RUN')
           navigate("/posts", {replace: true})
           window.location.reload(false)
         }

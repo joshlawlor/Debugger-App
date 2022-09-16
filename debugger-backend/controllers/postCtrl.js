@@ -69,20 +69,18 @@ const deletePost = (req, res) => {
 }
 
 const updatePost = (req,res) => {
-    console.log('UPDATE FUNCTION', req.user)
-    // Post.findByIdAndUpdate(req.params.id, req.body, (err,post) =>{
-    //     if(err){
-    //         res.status(400).json()
-    //         return
-    //     }
-    //     res.json(post)
-    // })
-    // console.log('USER FUNCTION:',user)
+    Post.findByIdAndUpdate(req.params.id, req.body, (err, post) =>{
+        if(err){
+            res.status(400).json()
+            return
+        }
+        res.json(post)
+    })   
+ 
     User.findOne({ email: req.user.email }, (err,user) => {
         if(err){
             res.status(400).json(err)
         }
-         
         user.posts.map((post) => {
             const id = post._id.toString()
             if(id == req.params.id){
@@ -92,25 +90,22 @@ const updatePost = (req,res) => {
 
                 console.log(`POST:`,user.posts)
                 console.log('AFTER UPDATE', post.title, post.content)
+                user.save()
+
 
             }else{
                 console.log(post._id)
                 console.log(req.params.id)
             }
-            user.save()
 
         })  
-        Post.findByIdAndUpdate(req.params.id, req.body, (err, post) =>{
-            if(err){
-                res.status(400).json()
-                return
-            }
-            res.json(post)
-        })        
-        
+       
 
 
     })
+        
+    
+    
 }
 
 

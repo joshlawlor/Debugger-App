@@ -67,11 +67,11 @@ const EditPostPage = ({ backendURL, loggedIn }) => {
 
             <form onSubmit={handleSubmit} className="form">
                 <label htmlFor='title'>Title:<br/>
-                    <input type="text" id='title' onChange={handleChange} />
+                    <input type="text" id='title' onChange={handleChange} ></input>
                 </label>
                 <br />
                 <label htmlFor='content'>Content:<br />
-                    <input type='textarea' id='content' onChange={handleChange} />
+                    <input value={formData?.content} type='textarea' id='content' onChange={handleChange} />
                 </label>
                 <br /> <br />
                 <button type='submit'>Edit Post</button>

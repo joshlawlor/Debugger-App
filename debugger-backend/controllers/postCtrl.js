@@ -12,13 +12,12 @@ const showAll = (req,res) => {
 
 const showOne = (req,res) => {
     let postId = req.params.id;
-    console.log('Post ID:',postId)
+    // console.log('Post ID:',postId)
     Post.findById({ _id: postId }, (err, post) => {
         if(err) {
             res.status(400).json(err)
             return
         }else {
-            console.log([post]) //Currently coming back undefined. Need to tweak the create post code so it assigns a user
             return res.json([post])
 
         }
@@ -57,7 +56,6 @@ const deletePost = (req, res) => {
         res.json({msg: 'Post Deleted'})
     })
     User.findOne({ email: req.user.email }, (err,user) => {
-        console.log('USER FUNCTION:',user)
         if(err){
             res.status(400).json(err)
         }
@@ -70,9 +68,56 @@ const deletePost = (req, res) => {
     })
 }
 
+const updatePost = (req,res) => {
+    console.log('UPDATE FUNCTION', req.user)
+    // Post.findByIdAndUpdate(req.params.id, req.body, (err,post) =>{
+    //     if(err){
+    //         res.status(400).json()
+    //         return
+    //     }
+    //     res.json(post)
+    // })
+    // console.log('USER FUNCTION:',user)
+    User.findOne({ email: req.user.email }, (err,user) => {
+        if(err){
+            res.status(400).json(err)
+        }
+         
+        user.posts.map((post) => {
+            const id = post._id.toString()
+            if(id == req.params.id){
+                console.log('BEFORE UPDATE', post.title, post.content)
+                post.title = req.body.title
+                post.content = req.body.content
+
+                console.log(`POST:`,user.posts)
+                console.log('AFTER UPDATE', post.title, post.content)
+
+            }else{
+                console.log(post._id)
+                console.log(req.params.id)
+            }
+            user.save()
+
+        })  
+        Post.findByIdAndUpdate(req.params.id, req.body, (err, post) =>{
+            if(err){
+                res.status(400).json()
+                return
+            }
+            res.json(post)
+        })        
+        
+
+
+    })
+}
+
+
 module.exports = {
     showAll,
     showOne,
     create,
-    deletePost
+    deletePost,
+    updatePost
 }

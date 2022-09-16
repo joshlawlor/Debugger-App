@@ -1,7 +1,7 @@
 const Post = require('../models/postModel')
 
 const create = (req,res) => {
-    console.log('Create comment function ran')
+    console.log('Create comment function ran', req.user)
     Post.findById({ _id: req.params.id}, (err, post) =>{
         if(err){
             res.status(400).json(err)

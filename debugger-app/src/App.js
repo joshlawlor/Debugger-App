@@ -1,8 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react'
 import {Link, Route, Routes } from 'react-router-dom'
-import LandingPage from './pages/LandingPage/LandingPage';
-import PostsPage from './pages/PostsPage/PostsPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignUpForm from './components/SignUpForm/SignUpForm'
@@ -11,7 +10,7 @@ import userServices from './utils/userServices';
 import tokenService from './utils/tokenService';
 import { useNavigate} from 'react-router-dom';
 import EditPostPage from './pages/EditPostPage/EditPostPage';
-
+import PostsPage from './pages/PostsPage/PostsPage'
 const backendURL = "http://localhost:9000"
 
 function App() {
@@ -37,14 +36,14 @@ function App() {
        
        <ul className='navbar'>
         
-          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/'>Profile</Link></li>
           <li><Link to='/posts'>Posts</Link></li>
           <li><Link to='/friends'>Friends</Link></li>
           <li><button onClick={handleLogout}>Logout</button></li>
        </ul>
   
        <Routes>
-        <Route path='/' element={<LandingPage backendURL={backendURL}/>}/>
+        <Route path='/' element={<ProfilePage backendURL={backendURL}/>}/>
         <Route path='/posts' element={<PostsPage backendURL={backendURL} loggedIn={loggedIn}/>}/>
         <Route path='/posts/:postId' element={<PostDetailsPage backendURL={backendURL} loggedIn={loggedIn}/>}/>
         <Route path='/posts/:postId/edit' element={<EditPostPage backendURL={backendURL}/>}/>
@@ -70,7 +69,7 @@ function App() {
        </ul>
   
        <Routes>
-        <Route path='/' element={<LandingPage backendURL={backendURL}/>}/>
+        <Route path='/' element={<PostsPage backendURL={backendURL}/>}/>
         <Route path='/posts' element={<PostsPage backendURL={backendURL} loggedIn={loggedIn}/>}/>
         <Route path='/posts/:postId' element={<PostDetailsPage backendURL={backendURL} loggedIn={loggedIn}/>}/>
         <Route path='/friends' element={<FriendsPage/>}/>

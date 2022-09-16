@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import tokenService from '../../utils/tokenService'
 import axios from 'axios'
 
 
 const CommentForm = ({post}) => {
     const backendURL = 'http://localhost:9000'
     const navigate = useNavigate()
-    console.log(`Post: `, post._id)
-    console.log(`Backend:`,backendURL)
     const initialState = {
         title: "",
         content: "",
     }
+    const userToken = tokenService.getToken()
+
 
     const [formData, setFormData] = useState(initialState)
 

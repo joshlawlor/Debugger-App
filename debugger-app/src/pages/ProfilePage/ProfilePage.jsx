@@ -3,7 +3,7 @@ import userServices from '../../utils/userServices'
 import tokenService from '../../utils/tokenService';
 import { useNavigate , useParams} from 'react-router-dom';
 import axios from 'axios';
-const LandingPage = ({backendURL}) => {
+const ProfilePage = ({backendURL}) => {
     const [userPosts, setUserPosts] = useState([]);
 
     const userToken = tokenService.getToken()
@@ -89,4 +89,4 @@ const LandingPage = ({backendURL}) => {
 }
 
 
-export default LandingPage
+export default ProfilePage

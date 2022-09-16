@@ -32,7 +32,9 @@ const SignUpForm = ({backendURL}) => {
         e.preventDefault();
         if(userCred.password === userCred.confirmPassword){
             testUserCred();
-          navigate('/', {replace:true})
+          navigate('/posts', {replace:true})
+          window.location.reload(false)
+
         }
         else{
           setErrorCode(1);

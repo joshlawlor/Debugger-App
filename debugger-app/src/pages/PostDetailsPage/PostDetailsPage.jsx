@@ -20,23 +20,6 @@ const PostDetailsPage = ({backendURL, loggedIn}) => {
 
     const user = userServices.getUser()
 
-
-//     useEffect(() =>{
-//         async function getPost() {
-//             let response = await fetch(`${backendURL}/posts/${postId}`, {
-//                 method: "GET",
-//                 headers: new Headers({ 'content-type': 'application/json' })
-//             }).then((response) => response.json())
-//             .then((data) => console.log(data[0]))
-//             let myPost = response.data
-//             // console.log(data[0])
-//             //     setPost(data)
-// //********  Need to send correct req.params.id to the backend so the ID will align with backend route */
-
-//             }
-//             getPost();
-//         }, [])
-
     useEffect(() => {
         async function getPost() {
             let response = await axios.get(`${url}/posts/${postId}`, {method: "GET", headers: new Headers({'Content-Type': 'application/json'})})

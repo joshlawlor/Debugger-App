@@ -53,7 +53,20 @@ const deletePost = (req, res) => {
         if(err) {
             res.status(400).json(err)
         }
+       
         res.json({msg: 'Post Deleted'})
+    })
+    User.findOne({ email: req.user.email }, (err,user) => {
+        console.log('USER FUNCTION:',user)
+        if(err){
+            res.status(400).json(err)
+        }
+        Post.findById({_id: req.params.id}, (err, post) =>{
+            user.posts.pop(post)
+            user.save()
+        })
+      
+
     })
 }
 

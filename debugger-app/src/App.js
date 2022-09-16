@@ -10,6 +10,7 @@ import PostDetailsPage from './pages/PostDetailsPage/PostDetailsPage';
 import userServices from './utils/userServices';
 import tokenService from './utils/tokenService';
 import { useNavigate} from 'react-router-dom';
+import EditPostPage from './pages/EditPostPage/EditPostPage';
 
 const backendURL = "http://localhost:9000"
 
@@ -46,6 +47,7 @@ function App() {
         <Route path='/' element={<LandingPage backendURL={backendURL}/>}/>
         <Route path='/posts' element={<PostsPage backendURL={backendURL} loggedIn={loggedIn}/>}/>
         <Route path='/posts/:postId' element={<PostDetailsPage backendURL={backendURL} loggedIn={loggedIn}/>}/>
+        <Route path='/posts/:postId/edit' element={<EditPostPage backendURL={backendURL}/>}/>
         <Route path='/friends' element={<FriendsPage/>}/>
         <Route path='/login' element={<LoginForm backendURL = {backendURL}/>}/>
         <Route path='/signup' element={<SignUpForm backendURL = {backendURL}/>}/>

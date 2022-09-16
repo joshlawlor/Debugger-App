@@ -39,10 +39,21 @@ function loginCheck() {
     }
 }
 
+// function ownerCheck(post){
+//     const user = getUserFromToken()
+//     console.log(user)
+//     console.log(post)
+//     if(user.username == post.author){
+//         return true
+//     }else if(user.username == null){
+//         return false
+//     }
+// }
+
 export default {
     setToken,
     getToken,
     getUserFromToken,
     removeToken,
-    loginCheck
+    loginCheck,
 }

@@ -28,8 +28,9 @@ const signUp = (req, res) =>{
 
 async function login(req, res) {
     try {
+        console.log('BODY',req.body)
       const user = await User.findOne({ email: req.body.email }).select('+password');
-      console.log(user);
+    //   console.log(user);
       if (!user) return res.status(401).json({ err: 'bad credentials' });
       user.comparePassword(req.body.password, (err, isMatch) => { //LITERALLY JUST NEEDED TO CHANGE pw TO PASSWORD 
         if (isMatch) {
@@ -39,6 +40,19 @@ async function login(req, res) {
           return res.status(401).json({ err: 'bad credentials' });
         }
       });
+    } catch (err) {
+      return res.status(400).json({err: 'lin 39'});
+    }
+  }
+
+  async function getUser(req, res) {
+    try {
+        console.log('BODY',req.body)
+      const user = await User.findOne({ email: req.body.email });
+      console.log(user);
+      if (!user) return res.status(401).json({ err: 'bad credentials' });
+      const token = createJWT(user);
+          res.json({ token });
     } catch (err) {
       return res.status(400).json({err: 'lin 39'});
     }
@@ -72,5 +86,6 @@ module.exports = {
     showAll,
     login,
     deleteUser,
-    showPosts
+    showPosts,
+    getUser
 }

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import CommentForm from "../../components/CommentForm/CommentForm";
+import userServices from "../../utils/userServices";
+import tokenService from "../../utils/tokenService";
 
 const PostDetailsPage = ({backendURL, loggedIn}) => {
     const url = backendURL
     const navigate = useNavigate();
 
     const {postId} = useParams();
-    console.log(postId)
     const initialState = {
         title: "",
         content: "",
@@ -16,6 +17,8 @@ const PostDetailsPage = ({backendURL, loggedIn}) => {
     }
 
     const [post, setPost] = useState(initialState)
+
+    const user = userServices.getUser()
 
 
 //     useEffect(() =>{
@@ -44,16 +47,14 @@ const PostDetailsPage = ({backendURL, loggedIn}) => {
         getPost();
     }, [])
 
-    function handleDelete(){
-        async function deletePost(){
-            let response = await axios.delete(`${url}/posts/${postId}`, {method: "DELETE"})
-            navigate('/posts')
-        }
-        deletePost()
-    }
+    
 
-
-    if(loggedIn){
+    // function checkOwner(){
+    //     tokenService.ownerCheck()
+    // }
+    // const isOwner = tokenService.ownerCheck(post)
+    // console.log('OWNER',isOwner)
+    if(!loggedIn){ //GUEST USER
         return (
             <div>
                 
@@ -61,29 +62,27 @@ const PostDetailsPage = ({backendURL, loggedIn}) => {
                 <h2>By: {post.author}</h2>
                 <p>Content: {post.content}</p>
                 {/* Need to make delete button only visible to author of post */}
-                <button onClick={handleDelete}>DELETE POST</button>
+                <br/>
+                {post.comments.map((comment) => {return <div><h4>{comment.title}</h4> <p>{comment.content}</p> </div>})}
+    
+            </div>
+        )
+    }else{ //Logged in but not Owner
+        return (
+            <div>
+                
+                <h1>Title: {post.title}</h1>
+                <h2>By: {post.author}</h2>
+                <p>Content: {post.content}</p>
+                {/* Need to make delete button only visible to author of post */}
                 <CommentForm backendURL={url} post={post}/>
                 <br/>
                 {post.comments.map((comment) => {return <div><h4>{comment.title}</h4> <p>{comment.content}</p> </div>})}
     
             </div>
         )
-    }else{
-        return (
-            <div>
-                
-                <h1>Title: {post.title}</h1>
-                <h2>By: {post.author}</h2>
-                <p>Content: {post.content}</p>
-                {/* Need to make delete button only visible to author of post */}
-                <br/>
-                {post.comments.map((comment) => {return <div><h4>{comment.title}</h4> <p>{comment.content}</p> </div>})}
     
-            </div>
-        )
     }
-    
+   
 }
-
-
 export default PostDetailsPage

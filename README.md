@@ -73,6 +73,8 @@ This project uses:
 - Mongoose,
 - express.js,
 - MongoDB.
+- materialize.css
+
 
 ## Dependencies
 Npm i to get started. 
